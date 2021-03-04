@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<label for="msg"></label><input type="text" id="msg"/>
+<button type="button" onclick="send()">发送11</button>
+<div id="box"></div>
+</body>
+<script type="text/javascript">
+    let websocket = null;
+    if ('WebSocket' in window) {
+        index = new WebSocket("ws://192.168.199.63:8080/websocket");
+        // 连接成功
+        index.onopen = () => {
+            console.log("开启连接");
+        };
+        // 发生错误
+        index.onerror = () => {
+            console.log("连接错误");
+        };
+        // 接收到消息
+        index.onmessage = (e) => {
+            document.getElementById("box").innerHTML += e.data + '<br/>';
+        };
+        //连接关闭的回调方法
+        index.onclose = () => {
+            console.log("连接关闭");
+        };
+    } else {
+        alert("您的浏览器不支持WebSocket");
+    }
+    let send = () => {
+        let msg = document.getElementById("msg").value;
+        index.send(msg);
+        document.getElementById("msg").value = '';
+    };
+    window.onbeforeunload = () => {
+        if (index != null)
+            index.close();
+    };
+</script>
+</html>

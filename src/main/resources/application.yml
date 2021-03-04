@@ -1,0 +1,39 @@
+spring:
+  profiles:
+    active: @build.profile.id@ #打包时根据不同配置打包：例如mvn package -P prod
+  lifecycle:
+    timeout-per-shutdown-phase: 30s #优雅停机最大等待时间
+  servlet:
+    multipart:
+      max-request-size: 100MB #单次请求所有文件最大上传大小
+      max-file-size: 20MB #单个文件最大上传大小
+  security:
+    user:
+      name: qmw
+      password: 123
+  redis:
+    host: localhost
+    port: 6379
+    database: 1 #1号数据库，数据库个数无上限
+    password:
+    timeout: 5000 #超时时间
+    jedis:
+      pool:
+        max-active: -1 #连接池最大连接数，负数表示没有限制
+        max-wait: -1 #连接池最大阻塞等待时间，负数表示没有限制
+        max-idle: 200 #连接池最大空闲连接
+        min-idle: 0 #连接池最小空闲连接
+server:
+  port: 8080 #端口号
+  shutdown: graceful #优雅停机
+logging:
+  file:
+    name: target/logs/app.log #日志文件路径
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml #resources/mapper目录下所有的.xml文件
+  configuration:
+    call-setters-on-nulls: true #值为null时也解析，防止解析为Map时出现key值不存在的现象
+  global-config:
+    db-config:
+      table-prefix: tb_ #全局表名前缀
+      id-type: auto #全局主键生成策略,auto为自动生成
