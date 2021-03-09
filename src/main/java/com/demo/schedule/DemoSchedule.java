@@ -10,9 +10,9 @@ import java.sql.Timestamp;
 @Component
 public class DemoSchedule {
 
-    @Scheduled(fixedDelay = 1000 * 5)
+    @Scheduled(fixedDelay = 1000 * 60)
     public void schedule01() {
-//        System.out.println(new Timestamp(System.currentTimeMillis()) + "\t每5秒执行一次");
+        System.out.println(new Timestamp(System.currentTimeMillis()) + "\t每60秒执行一次");
     }
 
     @Scheduled(cron = "0 0 1 * * ?")
