@@ -7,6 +7,6 @@ spring:
     druid:
       filters: stat
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://rm-bp1y69t96pr997nqz0o.mysql.rds.aliyuncs.com:3306/docq?serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL&autoReconnect=true
-      username: qmw
-      password: Qmw81634499
+      url: jdbc:mysql://localhost:3306/demo?serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL&autoReconnect=true
+      username: root
+      password: root

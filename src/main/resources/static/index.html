@@ -10,23 +10,24 @@
 <div id="box"></div>
 </body>
 <script type="text/javascript">
+    // 访问springboot根路径会自动查找index.html
     let websocket = null;
     if ('WebSocket' in window) {
-        index = new WebSocket("ws://192.168.199.63:8080/websocket");
+        websocket = new WebSocket("ws://localhost:8080/websocket");
         // 连接成功
-        index.onopen = () => {
+        websocket.onopen = () => {
             console.log("开启连接");
         };
         // 发生错误
-        index.onerror = () => {
+        websocket.onerror = () => {
             console.log("连接错误");
         };
         // 接收到消息
-        index.onmessage = (e) => {
+        websocket.onmessage = (e) => {
             document.getElementById("box").innerHTML += e.data + '<br/>';
         };
         //连接关闭的回调方法
-        index.onclose = () => {
+        websocket.onclose = () => {
             console.log("连接关闭");
         };
     } else {
@@ -34,12 +35,12 @@
     }
     let send = () => {
         let msg = document.getElementById("msg").value;
-        index.send(msg);
+        websocket.send(msg);
         document.getElementById("msg").value = '';
     };
     window.onbeforeunload = () => {
-        if (index != null)
-            index.close();
+        if (websocket != null)
+            websocket.close();
     };
 </script>
 </html>

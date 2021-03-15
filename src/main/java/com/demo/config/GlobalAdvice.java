@@ -1,6 +1,7 @@
 package com.demo.config;
 
 import com.alibaba.fastjson.JSON;
+import com.demo.aspect.custom.ResponseMessage;
 import com.qmw.entity.ResponseResult;
 import com.qmw.entity.ResponseStatus;
 import com.qmw.exception.CustomException;
@@ -37,7 +38,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @RestControllerAdvice
-public class GlobalExceptionHandler implements ResponseBodyAdvice<ResponseResult<?>> {
+public class GlobalAdvice implements ResponseBodyAdvice<Object> {
 
     @Resource
     private HttpServletRequest request;
@@ -98,17 +99,19 @@ public class GlobalExceptionHandler implements ResponseBodyAdvice<ResponseResult
     }
 
     @Override
-    public ResponseResult<?> beforeBodyWrite(ResponseResult<?> result,
-                                             MethodParameter parameter,
-                                             MediaType mediaType,
-                                             Class<? extends HttpMessageConverter<?>> clazz,
-                                             ServerHttpRequest request,
-                                             ServerHttpResponse response) {
+    public Object beforeBodyWrite(Object result,
+                                  MethodParameter parameter,
+                                  MediaType mediaType,
+                                  Class<? extends HttpMessageConverter<?>> clazz,
+                                  ServerHttpRequest request,
+                                  ServerHttpResponse response) {
+        ResponseMessage message = parameter.getMethodAnnotation(ResponseMessage.class);
+        ResponseResult<Object> o = ResponseResult.ok(result, message != null ? message.value() : "");
         log.info("[{}][{}]执行结果：{}{}",
                 this.request.getMethod(),
                 this.request.getRequestURI(),
                 StringUtil.LINE_SEPARATOR,
-                JSON.toJSONString(result, true));
-        return result;
+                JSON.toJSONString(o, true));
+        return o;
     }
 }

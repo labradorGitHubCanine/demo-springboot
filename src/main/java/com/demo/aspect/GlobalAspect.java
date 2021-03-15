@@ -19,7 +19,7 @@ public class GlobalAspect {
     @Resource
     private HttpServletRequest request;
 
-    @Pointcut("execution(* com.demo.controller.*.*(..)) && !execution(* com.demo.controller.IndexPageController.*(..))")
+    @Pointcut("execution(* com.demo.controller.*.*(..))")
     public void pointcut() {
     }
 
