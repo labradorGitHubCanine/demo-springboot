@@ -1,7 +1,7 @@
 package com.demo.controller;
 
-import com.demo.aspect.custom.ResponseMessage;
 import com.demo.entity.User;
+import com.qmw.annotation.ResponseMessage;
 import com.qmw.entity.PageX;
 import com.qmw.util.StringUtil;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.List;
 public class UserController {
 
     @GetMapping
-    @ResponseMessage("查询成功") // 自定义返回消息
+    @ResponseMessage("查询成功")
     public Object list() {
         List<User> list = new ArrayList<>();
         for (long i = 0; i < 10; i++) {

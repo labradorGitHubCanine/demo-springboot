@@ -1,7 +1,7 @@
 package com.demo.config;
 
 import com.alibaba.fastjson.JSON;
-import com.demo.aspect.custom.ResponseMessage;
+import com.qmw.annotation.ResponseMessage;
 import com.qmw.entity.ResponseResult;
 import com.qmw.entity.ResponseStatus;
 import com.qmw.exception.CustomException;
