@@ -105,13 +105,17 @@ public class GlobalAdvice implements ResponseBodyAdvice<Object> {
                                   Class<? extends HttpMessageConverter<?>> clazz,
                                   ServerHttpRequest request,
                                   ServerHttpResponse response) {
+        String msg = "";
         ResponseMessage message = parameter.getMethodAnnotation(ResponseMessage.class);
-        ResponseResult<Object> o = ResponseResult.ok(result, message != null ? message.value() : "");
+        if (message != null)
+            msg = message.value();
+        if (!(result instanceof ResponseResult))
+            result = ResponseResult.ok(result, msg);
         log.info("[{}][{}]执行结果：{}{}",
                 this.request.getMethod(),
                 this.request.getRequestURI(),
                 StringUtil.LINE_SEPARATOR,
-                JSON.toJSONString(o, true));
-        return o;
+                JSON.toJSONString(result, true));
+        return result;
     }
 }

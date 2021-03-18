@@ -34,7 +34,7 @@ public class UploadController {
 
     @PostMapping("upload")
     public void upload(@RequestParam(required = false) List<MultipartFile> file) throws IOException {
-        if (file.isEmpty())
+        if (file == null || file.isEmpty())
             throw new CustomException("请选择文件");
 
         List<LinkedHashMap<String, String>> list = null;
