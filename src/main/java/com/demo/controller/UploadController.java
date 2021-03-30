@@ -73,7 +73,6 @@ public class UploadController {
                 downLoadList.add(map);
             });
         }
-
         ExcelUtil.download(downLoadList, response, null);
     }
 
